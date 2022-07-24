@@ -1,6 +1,8 @@
 ---
-layout: single
-title: "this is my first post
+layout: post
+title:  "Welcome to Jekyll!"
 ---
 
-# header
+# test
+
+hi
