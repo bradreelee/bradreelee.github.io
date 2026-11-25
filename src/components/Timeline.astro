@@ -35,7 +35,7 @@ const items = await getTimeline(lang);
           </h3>
           {summary && <p class="mt-1">{summary}</p>}
 
-          {(projects.length > 0 || org.data.honors.length > 0) && (
+          {projects.length > 0 && (
             <ul class="mt-4 space-y-3 border-l border-dashed border-stone-300 pl-4 dark:border-stone-700" aria-label={t.orgProjectsAria(organization)}>
               {projects.map((p) => (
                 <li>
@@ -53,6 +53,10 @@ const items = await getTimeline(lang);
                   )}
                 </li>
               ))}
+            </ul>
+          )}
+          {org.data.honors.length > 0 && (
+            <ul class="mt-4 space-y-3 border-l border-dashed border-stone-300 pl-4 dark:border-stone-700">
               {org.data.honors.map((h) => (
                 <li>
                   <span class="font-medium text-stone-900 dark:text-stone-100">{h.title}</span>
