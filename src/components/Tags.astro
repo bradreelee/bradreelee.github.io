@@ -1,0 +1,18 @@
+---
+// Hashtag-style labels for the themes a post is about.
+interface Props {
+  tags: string[];
+  class?: string;
+}
+const { tags, class: cls } = Astro.props;
+---
+
+{
+  tags.length > 0 && (
+    <ul class:list={['flex flex-wrap gap-x-2.5 gap-y-1 text-sm text-stone-500 dark:text-stone-400', cls]}>
+      {tags.map((tag) => (
+        <li>#{tag}</li>
+      ))}
+    </ul>
+  )
+}

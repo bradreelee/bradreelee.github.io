@@ -8,3 +8,20 @@
 html {
   word-break: keep-all;
 }
+
+/* TL;DR box at the top of a post */
+.prose .tldr {
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-stone-200);
+  background: var(--color-stone-100);
+  padding: 0.25rem 1.25rem;
+  font-size: 0.95em;
+}
+.prose .tldr > :first-child { margin-top: 1rem; }
+.prose .tldr > :last-child { margin-bottom: 1rem; }
+@media (prefers-color-scheme: dark) {
+  .prose .tldr {
+    border-color: var(--color-stone-800);
+    background: var(--color-stone-900);
+  }
+}

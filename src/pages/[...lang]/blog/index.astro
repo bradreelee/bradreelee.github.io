@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Tags from '../../../components/Tags.astro';
 import { getPosts, slugOf, fmtDate } from '../../../lib/line';
 import { ui, localize, langParams, type Lang } from '../../../i18n';
 
@@ -30,6 +31,7 @@ const posts = await getPosts(lang);
               <span class="mt-1 block text-lg font-semibold text-stone-900 group-hover:underline dark:text-stone-100">{p.data.title}</span>
               <span class="mt-1 block text-stone-600 dark:text-stone-400">{p.data.description}</span>
             </a>
+            <Tags tags={p.data.tags} class="mt-2" />
           </li>
         ))}
       </ul>
