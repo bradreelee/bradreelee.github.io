@@ -35,7 +35,7 @@ The migration to RN was done entirely with AI, which made me far more productive
 The V1 app took three engineers about eight months of focused work. Even so, we had to fix about 300 bugs in the issue tracker, and at the planned release date the app still behaved differently across platforms. The V2 app, by contrast, was rebuilt from scratch by one developer in 40 days. And because RN is cross-platform, behavior stayed consistent across platforms.
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/v1-v2-table.webp" alt="Comparison of team size, duration, and bug count between the V1 and V2 apps" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/v1-v2-table.webp" alt="Comparison of team size, duration, and bug count between the V1 and V2 apps" loading="lazy" decoding="async" />
   <figcaption>Productivity of the V1 and V2 apps</figcaption>
 </figure>
 
@@ -75,7 +75,7 @@ To solve these problems, I decided to build the software factory bottom-up. In a
 I call this approach an incremental harness:
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/incremental-harness.webp" alt="Diagram of the incremental harness concept" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/incremental-harness.webp" alt="Diagram of the incremental harness concept" loading="lazy" decoding="async" />
   <figcaption>Incremental harness: a harness, literally a set of reins, matures through a bottom-up approach and lets the LLM perform better within the project's constraints.</figcaption>
 </figure>
 
@@ -95,7 +95,7 @@ Ways to actively strengthen the harness step by step:
 In this mode, a person corrects the AI's output by hand.
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/active-harness.webp" alt="Flow where a person reviews output and turns recurring problems into lint rules, hooks, and docs so the AI writes the next code within those rules" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/active-harness.webp" alt="Flow where a person reviews output and turns recurring problems into lint rules, hooks, and docs so the AI writes the next code within those rules" loading="lazy" decoding="async" />
   <figcaption>The active building flow</figcaption>
 </figure>
 
@@ -110,7 +110,7 @@ At first I connected the LLM to Obsidian and had it record any prompt of mine th
 Later, once I learned that Claude stores conversation history internally, I did the same thing without the Obsidian integration.
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/passive-harness.webp" alt="Flow that extracts correction candidates from Claude conversation history, classifies them, and proposes fixes, with only the items a person approves applied to lint, hooks, skills, and CLAUDE.md" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/passive-harness.webp" alt="Flow that extracts correction candidates from Claude conversation history, classifies them, and proposes fixes, with only the items a person approves applied to lint, hooks, skills, and CLAUDE.md" loading="lazy" decoding="async" />
   <figcaption>The passive building flow</figcaption>
 </figure>
 
@@ -119,7 +119,7 @@ Later, once I learned that Claude stores conversation history internally, I did 
 The goal of the bottom-up approach is to gradually reduce human intervention. I measured it as the frequency of code corrections, and over the development period that number dropped to about one fifth.
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/corrections-dumbbell.webp" alt="Chart comparing code convention corrections by type before and after 09-25" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/corrections-dumbbell.webp" alt="Chart comparing code convention corrections by type before and after 09-25" loading="lazy" decoding="async" />
   <figcaption>Code convention corrections by type, before and after 09-25</figcaption>
 </figure>
 
@@ -152,7 +152,7 @@ I changed each agent to start the API server on its own assigned port when its w
 To avoid duplicating node_modules by installing dependencies in every worktree, I used the `clone` command so that different worktrees share the same blobs on disk, with only the changes kept separately per worktree.
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/worktree-topology.webp" alt="Diagram of API server ports, databases, and Redis instances isolated per slot" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/worktree-topology.webp" alt="Diagram of API server ports, databases, and Redis instances isolated per slot" loading="lazy" decoding="async" />
   <figcaption>Resources per slot (based on the worktree script; the worktree names for slots 1 and 2 are examples)</figcaption>
 </figure>
 
@@ -175,7 +175,7 @@ I also changed the dev server port the RN app points to, at launch and while run
 ### Results
 
 <figure>
-  <img src="/images/blog/ai-rn-migration/tool-speed.webp" alt="Chart comparing time taken per task before and after the improvements" loading="lazy" decoding="async" />
+  <img src="/images/blog/ai-rn-migration/en/tool-speed.webp" alt="Chart comparing time taken per task before and after the improvements" loading="lazy" decoding="async" />
   <figcaption>Time taken before and after the improvements (seconds)</figcaption>
 </figure>
 
