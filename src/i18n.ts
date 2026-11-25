@@ -12,7 +12,7 @@ export const ui = {
     navAria: '주요 메뉴',
     contactAria: '연락처',
     present: '현재',
-    type: { work: '경력', education: '학력', community: '활동' },
+    type: { work: '경력', education: '학력', community: '활동', personal: '개인' },
     orgProjectsAria: (org: string) => `${org}에서 한 프로젝트`,
     projects: { title: '프로젝트', description: '조직별로 정리한 프로젝트 목록입니다.' },
     blog: {
@@ -33,7 +33,7 @@ export const ui = {
     navAria: 'Main menu',
     contactAria: 'Contact',
     present: 'Present',
-    type: { work: 'Work', education: 'Education', community: 'Community' },
+    type: { work: 'Work', education: 'Education', community: 'Community', personal: 'Personal' },
     orgProjectsAria: (org: string) => `Projects at ${org}`,
     projects: { title: 'Projects', description: 'Projects grouped by organization.' },
     blog: {

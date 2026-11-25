@@ -2,6 +2,7 @@
 title: (예시) 결제 API의 p95 응답 시간을 줄인 과정
 description: 느린 쿼리를 찾고, 캐시를 도입하고, 결과를 검증한 과정을 정리합니다.
 pubDate: 2024-07-01
+draft: true
 tags: [성능, PostgreSQL]
 project: payment-api
 ---

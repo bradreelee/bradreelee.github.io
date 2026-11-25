@@ -21,6 +21,7 @@ const links = [{ label: 'Email', href: `mailto:${profile.email}` }, ...profile.l
     <p class="text-sm font-medium text-stone-500">{profile.role}</p>
     <h1 class="mt-2 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl dark:text-stone-50">
       {profile.name}
+      <span class="ml-3 text-2xl font-medium tracking-normal text-stone-400 sm:text-3xl dark:text-stone-500">{profile.nickname}</span>
     </h1>
     <p class="mt-5 text-lg leading-relaxed">{profile.headline}</p>
     <nav class="mt-6 flex flex-wrap gap-4 text-sm" aria-label={t.contactAria}>

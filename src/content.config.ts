@@ -11,7 +11,7 @@ const timeline = defineCollection({
   schema: z.object({
     organization: z.string(),
     title: z.string(), // role or degree
-    type: z.enum(['work', 'education', 'community']),
+    type: z.enum(['work', 'education', 'community', 'personal']),
     start: z.coerce.date(),
     end: z.coerce.date().optional(), // omit while it is ongoing
     summary: z.string().optional(),
