@@ -1,5 +1,5 @@
 ---
-import { getTimeline, period, slugOf } from '../lib/line';
+import { getTimeline, period, slugOf, ym } from '../lib/line';
 import { ui, localize, type Lang } from '../i18n';
 
 interface Props {
@@ -35,7 +35,7 @@ const items = await getTimeline(lang);
           </h3>
           {summary && <p class="mt-1">{summary}</p>}
 
-          {projects.length > 0 && (
+          {(projects.length > 0 || org.data.honors.length > 0) && (
             <ul class="mt-4 space-y-3 border-l border-dashed border-stone-300 pl-4 dark:border-stone-700" aria-label={t.orgProjectsAria(organization)}>
               {projects.map((p) => (
                 <li>
@@ -51,6 +51,12 @@ const items = await getTimeline(lang);
                       ))}
                     </ul>
                   )}
+                </li>
+              ))}
+              {org.data.honors.map((h) => (
+                <li>
+                  <span class="font-medium text-stone-900 dark:text-stone-100">{h.title}</span>
+                  <span class="ml-2 text-xs tabular-nums text-stone-500">{ym(h.date)}</span>
                 </li>
               ))}
             </ul>

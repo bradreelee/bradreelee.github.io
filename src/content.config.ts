@@ -16,6 +16,8 @@ const timeline = defineCollection({
     end: z.coerce.date().optional(), // omit while it is ongoing
     summary: z.string().optional(),
     link: z.string().url().optional(),
+    // Awards and scholarships, listed under the organization's projects.
+    honors: z.array(z.object({ title: z.string(), date: z.coerce.date() })).default([]),
   }),
 });
 
