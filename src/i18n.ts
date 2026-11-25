@@ -17,7 +17,7 @@ export const ui = {
     projects: { title: '프로젝트', description: '조직별로 정리한 프로젝트 목록입니다.' },
     blog: {
       title: '글',
-      description: '기술 문제를 어떻게 분석하고 해결했는지 기록합니다.',
+      description: '프로젝트를 수행하며 겪은 문제를 해결한 과정들을 기록합니다.',
       empty: '아직 공개한 글이 없습니다.',
       all: '전체 글',
     },
@@ -38,7 +38,7 @@ export const ui = {
     projects: { title: 'Projects', description: 'Projects grouped by organization.' },
     blog: {
       title: 'Writing',
-      description: 'Notes on how I analyzed and solved technical problems.',
+      description: 'How I solved the problems I ran into while working on projects.',
       empty: 'No posts yet.',
       all: 'All posts',
     },

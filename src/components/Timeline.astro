@@ -42,9 +42,6 @@ const items = await getTimeline(lang);
                   <a href={localize(lang, `/projects/${slugOf(p)}/`)} class="group block">
                     <span class="font-medium text-stone-900 group-hover:underline dark:text-stone-100">{p.data.title}</span>
                     <span class="ml-2 text-xs tabular-nums text-stone-500">{period(lang, p.data.start, p.data.end)}</span>                  </a>
-                  {p.data.stack.length > 0 && (
-                    <p class="mt-0.5 text-xs text-stone-400 dark:text-stone-500">{p.data.stack.join(' · ')}</p>
-                  )}
                 </li>
               ))}
             </ul>
