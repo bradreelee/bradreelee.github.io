@@ -1,21 +1,29 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Timeline from '../components/Timeline.astro';
-import { profile } from '../data/profile';
-import { getPosts } from '../lib/line';
+import Layout from '../../layouts/Layout.astro';
+import Timeline from '../../components/Timeline.astro';
+import { profiles } from '../../data/profile';
+import { getPosts, slugOf, fmtDate } from '../../lib/line';
+import { ui, localize, langParams, type Lang } from '../../i18n';
 
-const posts = (await getPosts()).slice(0, 3);
+export function getStaticPaths() {
+  return langParams().map(({ lang, param }) => ({ params: { lang: param }, props: { lang } }));
+}
+
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang];
+const profile = profiles[lang];
+const posts = (await getPosts(lang)).slice(0, 3);
 const links = [{ label: 'Email', href: `mailto:${profile.email}` }, ...profile.links];
 ---
 
-<Layout>
+<Layout lang={lang}>
   <header>
     <p class="text-sm font-medium text-stone-500">{profile.role}</p>
     <h1 class="mt-2 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl dark:text-stone-50">
       {profile.name}
     </h1>
     <p class="mt-5 text-lg leading-relaxed">{profile.headline}</p>
-    <nav class="mt-6 flex flex-wrap gap-4 text-sm" aria-label="연락처">
+    <nav class="mt-6 flex flex-wrap gap-4 text-sm" aria-label={t.contactAria}>
       {
         links.map((l) => (
           <a href={l.href} class="underline decoration-stone-300 underline-offset-4 hover:decoration-stone-800 dark:hover:decoration-stone-200" target="_blank" rel="noopener">
@@ -38,7 +46,7 @@ const links = [{ label: 'Email', href: `mailto:${profile.email}` }, ...profile.l
 
   <section class="mt-20" aria-labelledby="timeline">
     <h2 id="timeline" class="mb-8 text-sm font-semibold uppercase tracking-widest text-stone-500">Timeline</h2>
-    <Timeline />
+    <Timeline lang={lang} />
   </section>
 
   {
@@ -46,14 +54,14 @@ const links = [{ label: 'Email', href: `mailto:${profile.email}` }, ...profile.l
       <section class="mt-20" aria-labelledby="posts">
         <div class="mb-6 flex items-baseline justify-between">
           <h2 id="posts" class="text-sm font-semibold uppercase tracking-widest text-stone-500">Writing</h2>
-          <a href="/blog/" class="text-sm text-stone-500 underline-offset-4 hover:underline">전체 글</a>
+          <a href={localize(lang, '/blog/')} class="text-sm text-stone-500 underline-offset-4 hover:underline">{t.blog.all}</a>
         </div>
         <ul class="space-y-6">
           {posts.map((p) => (
             <li>
-              <a href={`/blog/${p.id}/`} class="group block">
+              <a href={localize(lang, `/blog/${slugOf(p)}/`)} class="group block">
                 <time class="text-sm tabular-nums text-stone-500" datetime={p.data.pubDate.toISOString()}>
-                  {p.data.pubDate.toLocaleDateString('ko-KR')}
+                  {fmtDate(lang, p.data.pubDate)}
                 </time>
                 <span class="mt-1 block font-semibold text-stone-900 group-hover:underline dark:text-stone-100">{p.data.title}</span>
                 <span class="mt-1 block text-sm text-stone-600 dark:text-stone-400">{p.data.description}</span>

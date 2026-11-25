@@ -1,31 +1,48 @@
 ---
 import '../styles/global.css';
-import { profile } from '../data/profile';
+import { profiles } from '../data/profile';
+import { ui, localize, otherLang, langs, type Lang } from '../i18n';
 
 interface Props {
+  lang: Lang;
   title?: string;
   description?: string;
+  /** Language-neutral path of this page in the other language; defaults to the same page. */
+  alternate?: string;
 }
 
-const { title, description = profile.headline } = Astro.props;
+const { lang, title } = Astro.props;
+const profile = profiles[lang];
+const t = ui[lang];
+const description = Astro.props.description ?? profile.headline;
 const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name} | ${profile.role}`;
+
 const path = Astro.url.pathname;
+const neutral = lang === 'ko' ? path : path.replace(/^\/en(?=\/|$)/, '') || '/';
+const alt = otherLang(lang);
+const alternate = Astro.props.alternate ?? neutral;
 const nav = [
-  { href: '/', label: '홈', active: path === '/' },
-  { href: '/projects/', label: '프로젝트', active: path.startsWith('/projects') },
-  { href: '/blog/', label: '글', active: path.startsWith('/blog') },
+  { href: '/', label: t.nav.home, active: neutral === '/' },
+  { href: '/projects/', label: t.nav.projects, active: neutral.startsWith('/projects') },
+  { href: '/blog/', label: t.nav.blog, active: neutral.startsWith('/blog') },
 ];
 ---
 
-<html lang="ko">
+<html lang={t.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(path, Astro.site)} />
+    {
+      langs.map((l) => (
+        <link rel="alternate" hreflang={l} href={new URL(localize(l, l === lang ? neutral : alternate), Astro.site)} />
+      ))
+    }
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="stylesheet"
@@ -35,24 +52,35 @@ const nav = [
   </head>
   <body class="bg-stone-50 text-stone-800 antialiased dark:bg-stone-950 dark:text-stone-200">
     <div class="mx-auto max-w-2xl px-5">
-      <header class="flex items-center justify-between py-6 text-sm">
-        <a href="/" class="font-semibold text-stone-900 dark:text-stone-100">{profile.name}</a>
-        <nav aria-label="주요 메뉴" class="flex gap-5">
-          {
-            nav.map((n) => (
-              <a
-                href={n.href}
-                aria-current={n.active ? 'page' : undefined}
-                class:list={[
-                  'underline-offset-4 hover:underline',
-                  n.active ? 'text-stone-900 underline dark:text-stone-100' : 'text-stone-500',
-                ]}
-              >
-                {n.label}
-              </a>
-            ))
-          }
-        </nav>
+      <header class="flex items-center justify-between gap-4 py-6 text-sm">
+        <a href={localize(lang, '/')} class="font-semibold text-stone-900 dark:text-stone-100">{profile.name}</a>
+        <div class="flex items-center gap-5">
+          <nav aria-label={t.navAria} class="flex gap-5">
+            {
+              nav.map((n) => (
+                <a
+                  href={localize(lang, n.href)}
+                  aria-current={n.active ? 'page' : undefined}
+                  class:list={[
+                    'underline-offset-4 hover:underline',
+                    n.active ? 'text-stone-900 underline dark:text-stone-100' : 'text-stone-500',
+                  ]}
+                >
+                  {n.label}
+                </a>
+              ))
+            }
+          </nav>
+          <a
+            href={localize(alt, alternate)}
+            hreflang={alt}
+            lang={alt}
+            aria-label={t.switchAria}
+            class="rounded-full border border-stone-300 px-2.5 py-1 text-xs font-medium text-stone-600 transition-colors hover:border-stone-500 hover:text-stone-900 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-500 dark:hover:text-stone-100"
+          >
+            {t.switchLabel}
+          </a>
+        </div>
       </header>
       <main class="pb-20 pt-8 sm:pt-14">
         <slot />

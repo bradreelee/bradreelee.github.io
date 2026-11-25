@@ -1,0 +1,47 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getTimeline, period, slugOf } from '../../../lib/line';
+import { ui, localize, langParams, type Lang } from '../../../i18n';
+
+export function getStaticPaths() {
+  return langParams().map(({ lang, param }) => ({ params: { lang: param }, props: { lang } }));
+}
+
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang];
+const groups = (await getTimeline(lang)).filter((g) => g.projects.length > 0);
+---
+
+<Layout lang={lang} title={t.projects.title} description={t.projects.description}>
+  <h1 class="text-3xl font-bold tracking-tight text-stone-900 dark:text-stone-50">{t.projects.title}</h1>
+
+  <div class="mt-12 space-y-14">
+    {
+      groups.map(({ org, projects }) => (
+        <section aria-labelledby={`g-${slugOf(org)}`}>
+          <h2 id={`g-${slugOf(org)}`} class="text-sm font-semibold text-stone-500">
+            <a href={localize(lang, `/#org-${slugOf(org)}`)} class="hover:underline">{org.data.organization}</a>
+            <span class="ml-2 font-normal tabular-nums">{period(lang, org.data.start, org.data.end)}</span>
+          </h2>
+          <ul class="mt-4 space-y-6">
+            {projects.map((p) => (
+              <li>
+                <a href={localize(lang, `/projects/${slugOf(p)}/`)} class="group block">
+                  <span class="text-lg font-semibold text-stone-900 group-hover:underline dark:text-stone-100">{p.data.title}</span>
+                  <span class="mt-1 block text-stone-600 dark:text-stone-400">{p.data.summary}</span>
+                </a>
+                {p.data.stack.length > 0 && (
+                  <ul class="mt-2 flex flex-wrap gap-1.5">
+                    {p.data.stack.map((s) => (
+                      <li class="rounded-full border border-stone-300 px-2 py-0.5 text-xs dark:border-stone-700">{s}</li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Layout>

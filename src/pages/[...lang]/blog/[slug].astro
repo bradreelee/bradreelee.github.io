@@ -1,0 +1,45 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import { getPosts, getProjects, slugOf, slugsIn, fmtDate, type Post } from '../../../lib/line';
+import { ui, localize, otherLang, langParams, type Lang } from '../../../i18n';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const { lang, param } of langParams()) {
+    for (const post of await getPosts(lang)) {
+      paths.push({ params: { lang: param, slug: slugOf(post) }, props: { lang, post } });
+    }
+  }
+  return paths;
+}
+
+const { lang, post } = Astro.props as { lang: Lang; post: Post };
+const t = ui[lang];
+const slug = slugOf(post);
+const { Content } = await render(post);
+const project = post.data.project
+  ? (await getProjects(lang)).find((p) => slugOf(p) === post.data.project)
+  : undefined;
+const translated = (await slugsIn('blog', otherLang(lang))).has(slug);
+---
+
+<Layout lang={lang} title={post.data.title} description={post.data.description} alternate={translated ? `/blog/${slug}/` : '/blog/'}>
+  <article>
+    <time class="text-sm tabular-nums text-stone-500" datetime={post.data.pubDate.toISOString()}>
+      {fmtDate(lang, post.data.pubDate, true)}
+    </time>
+    <h1 class="mt-2 text-3xl font-bold leading-tight tracking-tight text-stone-900 sm:text-4xl dark:text-stone-50">{post.data.title}</h1>
+    <p class="mt-4 text-lg leading-relaxed text-stone-600 dark:text-stone-400">{post.data.description}</p>
+    {
+      project && (
+        <p class="mt-4 text-sm text-stone-500">
+          {t.relatedProject} · <a href={localize(lang, `/projects/${slugOf(project)}/`)} class="underline underline-offset-4">{project.data.title}</a>
+        </p>
+      )
+    }
+    <div class="prose prose-stone mt-10 max-w-none dark:prose-invert">
+      <Content />
+    </div>
+  </article>
+</Layout>
