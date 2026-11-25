@@ -7,4 +7,5 @@ summary: 서버, iOS, Android, 어드민으로 나뉘어 있던 서비스를 모
 stack: [React Native, NestJS, GraphQL, PostgreSQL]
 links:
   - { label: "App Store", href: "https://apps.apple.com/kr/app/%EC%95%84%EB%AA%A8%EB%A7%81-amoring/id6504471622" }
+  - { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.socialpoint.amoring2&hl=en" }
 ---

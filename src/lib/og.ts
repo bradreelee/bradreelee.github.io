@@ -71,7 +71,8 @@ async function load(url: string): Promise<LinkPreview> {
       signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) return { url, host };
-    const html = (await res.text()).slice(0, 300_000);
+    // Some pages (e.g. Google Play) put their OG tags ~1MB into the HTML.
+    const html = (await res.text()).slice(0, 2_000_000);
     const rawImage = meta(html, 'og:image') ?? meta(html, 'twitter:image');
     const title =
       meta(html, 'og:title') ?? meta(html, 'twitter:title') ?? html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1];

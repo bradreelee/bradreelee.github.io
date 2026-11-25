@@ -7,4 +7,5 @@ summary: Rewrote a service split across server, iOS, Android, and admin repos in
 stack: [React Native, NestJS, GraphQL, PostgreSQL]
 links:
   - { label: "App Store", href: "https://apps.apple.com/kr/app/%EC%95%84%EB%AA%A8%EB%A7%81-amoring/id6504471622" }
+  - { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.socialpoint.amoring2&hl=en" }
 ---
