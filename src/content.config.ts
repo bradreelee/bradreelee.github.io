@@ -32,6 +32,8 @@ const projects = defineCollection({
     summary: z.string(),
     stack: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), href: z.string().url() })).default([]),
+    // Paths under public/, e.g. /images/projects/<slug>/screen-1.webp. The first image is shown full width.
+    images: z.array(z.object({ src: z.string(), alt: z.string() })).default([]),
   }),
 });
 

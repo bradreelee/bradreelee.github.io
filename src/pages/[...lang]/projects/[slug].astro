@@ -50,6 +50,25 @@ const translated = (await slugsIn('projects', otherLang(lang))).has(slug);
       )
     }
 
+    {
+      project.data.images.length > 0 && (
+        <div class="mt-10 grid grid-cols-2 gap-3">
+          {project.data.images.map((img, i) => (
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              class:list={[
+                'w-full rounded-lg border border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-900',
+                i === 0 && 'col-span-2',
+              ]}
+            />
+          ))}
+        </div>
+      )
+    }
+
     <div class="prose prose-stone mt-10 max-w-none dark:prose-invert">
       <Content />
     </div>
