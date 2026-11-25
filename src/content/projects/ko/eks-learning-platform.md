@@ -1,5 +1,5 @@
 ---
-title: AWS EKS 학습 플랫폼
+title: AWS EKS JAM for App. Modernization
 org: lg-cns
 start: 2023-01
 end: 2023-04
