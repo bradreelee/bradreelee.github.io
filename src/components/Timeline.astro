@@ -43,11 +43,7 @@ const items = await getTimeline(lang);
                     <span class="font-medium text-stone-900 group-hover:underline dark:text-stone-100">{p.data.title}</span>
                     <span class="ml-2 text-xs tabular-nums text-stone-500">{period(lang, p.data.start, p.data.end)}</span>                  </a>
                   {p.data.stack.length > 0 && (
-                    <ul class="mt-2 flex flex-wrap gap-1.5">
-                      {p.data.stack.map((s) => (
-                        <li class="rounded-full border border-stone-300 px-2 py-0.5 text-xs dark:border-stone-700">{s}</li>
-                      ))}
-                    </ul>
+                    <p class="mt-0.5 text-xs text-stone-400 dark:text-stone-500">{p.data.stack.join(' · ')}</p>
                   )}
                 </li>
               ))}
