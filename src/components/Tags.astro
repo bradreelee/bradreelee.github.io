@@ -9,9 +9,11 @@ const { tags, class: cls } = Astro.props;
 
 {
   tags.length > 0 && (
-    <ul class:list={['flex flex-wrap gap-x-2.5 gap-y-1 text-sm text-stone-500 dark:text-stone-400', cls]}>
+    <ul class:list={['flex flex-wrap gap-1.5', cls]}>
       {tags.map((tag) => (
-        <li>#{tag}</li>
+        <li class="rounded-md bg-stone-200/70 px-2 py-0.5 text-xs font-medium text-stone-600 dark:bg-stone-800 dark:text-stone-300">
+          #{tag}
+        </li>
       ))}
     </ul>
   )
