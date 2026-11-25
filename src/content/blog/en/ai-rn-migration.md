@@ -2,7 +2,7 @@
 title: Migrating to React Native with AI
 description: How I rebuilt a native app that took three engineers eight months, alone in 40 days with React Native, and built an incremental harness and parallel dev environment that keep AI within the project's conventions.
 pubDate: 2026-11-19
-tags: [SoftwareFactory, IncrementalHarness, AINativeDevelopment, RNMigration, ParallelDevelopment]
+tags: [Software Factory, Incremental Harness, AI-Native Development, RN Migration, Parallel Development]
 project: amoring-v2-rebuild
 ---
 
