@@ -1,0 +1,36 @@
+---
+import { getLinkPreview } from '../lib/og';
+
+interface Props {
+  href: string;
+  label: string;
+}
+const { href, label } = Astro.props;
+const p = await getLinkPreview(href);
+const title = p.title || label;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener"
+  class="group block overflow-hidden rounded-xl border border-stone-200 bg-white transition-colors hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-600"
+>
+  {
+    p.image && (
+      <img
+        src={p.image}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        referrerpolicy="no-referrer"
+        onerror="this.remove()"
+        class="aspect-[1.91/1] w-full border-b border-stone-200 bg-stone-100 object-contain dark:border-stone-800 dark:bg-stone-800"
+      />
+    )
+  }
+  <span class="block px-4 py-3">
+    <span class="line-clamp-2 font-semibold text-stone-900 group-hover:underline dark:text-stone-100">{title}</span>
+    <span class="mt-1 block text-sm text-stone-500">{p.siteName ?? p.host}</span>
+  </span>
+</a>
