@@ -5,4 +5,6 @@ start: 2023-01
 end: 2023-04
 summary: Built an AWS EKS learning platform and automated its grading.
 stack: [AWS EKS, Kubernetes]
+links:
+  - { label: "LG CNS blog (in Korean): Building Amazon EKS JAM", href: "https://www.lgcns.com/kr/moa/insight/detail.43280" }
 ---
