@@ -1,5 +1,5 @@
 ---
-title: 인도네시아 보험 앱
+title: Lippo MyGo+ (인도네시아 보험 앱)
 org: lg-cns
 start: 2024-07
 end: 2025-01
