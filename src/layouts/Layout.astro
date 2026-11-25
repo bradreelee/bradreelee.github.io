@@ -1,13 +1,20 @@
 ---
 import '../styles/global.css';
+import { profile } from '../data/profile';
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
-const { title, description } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const { title, description = profile.headline } = Astro.props;
+const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name} | ${profile.role}`;
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/', label: '홈', active: path === '/' },
+  { href: '/projects/', label: '프로젝트', active: path.startsWith('/projects') },
+  { href: '/blog/', label: '글', active: path.startsWith('/blog') },
+];
 ---
 
 <html lang="ko">
@@ -15,17 +22,44 @@ const base = import.meta.env.BASE_URL;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
   </head>
   <body class="bg-stone-50 text-stone-800 antialiased dark:bg-stone-950 dark:text-stone-200">
-    <slot />
+    <div class="mx-auto max-w-2xl px-5">
+      <header class="flex items-center justify-between py-6 text-sm">
+        <a href="/" class="font-semibold text-stone-900 dark:text-stone-100">{profile.name}</a>
+        <nav aria-label="주요 메뉴" class="flex gap-5">
+          {
+            nav.map((n) => (
+              <a
+                href={n.href}
+                aria-current={n.active ? 'page' : undefined}
+                class:list={[
+                  'underline-offset-4 hover:underline',
+                  n.active ? 'text-stone-900 underline dark:text-stone-100' : 'text-stone-500',
+                ]}
+              >
+                {n.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+      <main class="pb-20 pt-8 sm:pt-14">
+        <slot />
+      </main>
+      <footer class="border-t border-stone-200 py-8 text-sm text-stone-500 dark:border-stone-800">
+        © {new Date().getFullYear()} {profile.name}
+      </footer>
+    </div>
   </body>
 </html>
