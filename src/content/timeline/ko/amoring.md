@@ -1,7 +1,8 @@
 ---
-organization: 아모링
+organization: Amoring
 title: 개발 총괄 (사이드프로젝트)
 summary: 위치 기반 소개팅 앱입니다. 백엔드 개발로 합류해, 지금은 개발과 운영 전반을 맡고 있습니다.
 type: work
 start: 2025-11
+link: https://apps.apple.com/kr/app/%EC%95%84%EB%AA%A8%EB%A7%81-amoring/id6504471622
 ---
